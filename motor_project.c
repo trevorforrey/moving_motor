@@ -79,14 +79,14 @@ int main (void) {
       // Change control pins on h-bridge to turn motor "wise"
       digitalWrite(CONTROL_PIN_1, HIGH);
       digitalWrite(CONTROL_PIN_2, LOW);
-      printf("Motor turning in direction A\n");
+      printf("Motor turning in direction A\n"); delay(500);
 
     } else if (motorDirection == 0) {
       
       // Change control pins on h-bridge to turn motor "wise"
       digitalWrite(CONTROL_PIN_1, LOW);
       digitalWrite(CONTROL_PIN_2, HIGH);
-      printf("Motor turning in direction B\n");
+      printf("Motor turning in direction B\n"); delay(500);
     }
 
     // Turning motor on & off
@@ -95,12 +95,14 @@ int main (void) {
       // turn on motor w/ ON_OFF_CONTROL_PIN
       //softPwmWrite(ON_OFF_CONTROL_PIN,100);
       digitalWrite(ON_OFF_CONTROL_PIN, HIGH);
+      printf("Motor should be running\n"); delay(500);
     
     } else if (motorEnabled == 0) {
     
       // turn off motor w/ ON_OFF_CONTROL_PIN
       //softPwmWrite(ON_OFF_CONTROL_PIN,0);
       digitalWrite(ON_OFF_CONTROL_PIN, LOW);
+      printf("Motor should be off\n"); delay(500);
     
     }
   }
