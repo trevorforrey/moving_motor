@@ -59,9 +59,7 @@ int main (void) {
   pinMode (ON_OFF_CONTROL_PIN, OUTPUT);
 
   // Set up ON_OFF_CONTROL_PIN as a software pwm-able pin
-  if (softPwmCreate(ON_OFF_CONTROL_PIN,0,100) != 0) {
-    fprintf(stderr, "Unable to set up PWM pin: %s", strerror (errno));
-  }
+  //softPwmCreate(ON_OFF_CONTROL_PIN,0,100);
 
 
   // Setting up turning on and off DC motor function as interrupt 
@@ -81,13 +79,14 @@ int main (void) {
       // Change control pins on h-bridge to turn motor "wise"
       digitalWrite(CONTROL_PIN_1, HIGH);
       digitalWrite(CONTROL_PIN_2, LOW);
+      printf("Motor turning in direction A\n");
 
     } else if (motorDirection == 0) {
       
       // Change control pins on h-bridge to turn motor "wise"
       digitalWrite(CONTROL_PIN_1, LOW);
       digitalWrite(CONTROL_PIN_2, HIGH);
-      
+      printf("Motor turning in direction B\n");
     }
 
     // Turning motor on & off
