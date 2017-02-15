@@ -59,7 +59,7 @@ int main (void) {
   pinMode (ON_OFF_CONTROL_PIN, OUTPUT);
 
   // Set up ON_OFF_CONTROL_PIN as a software pwm-able pin
-  //softPwmCreate(ON_OFF_CONTROL_PIN,0,100);
+  softPwmCreate(ON_OFF_CONTROL_PIN,0,100);
 
 
   // Setting up turning on and off DC motor function as interrupt 
@@ -93,15 +93,15 @@ int main (void) {
     if (motorEnabled == 1) {
       
       // turn on motor w/ ON_OFF_CONTROL_PIN
-      //softPwmWrite(ON_OFF_CONTROL_PIN,100);
-      digitalWrite(ON_OFF_CONTROL_PIN, HIGH);
+      softPwmWrite(ON_OFF_CONTROL_PIN,100);
+      //digitalWrite(ON_OFF_CONTROL_PIN, HIGH);
       printf("Motor should be running\n"); delay(500);
     
     } else if (motorEnabled == 0) {
     
       // turn off motor w/ ON_OFF_CONTROL_PIN
-      //softPwmWrite(ON_OFF_CONTROL_PIN,0);
-      digitalWrite(ON_OFF_CONTROL_PIN, LOW);
+      softPwmWrite(ON_OFF_CONTROL_PIN,0);
+      //digitalWrite(ON_OFF_CONTROL_PIN, LOW);
       printf("Motor should be off\n"); delay(500);
     
     }
