@@ -11,11 +11,11 @@
 
 //////// DEFINES //////////
 
-#define ON_BUTTON 21
-#define CHANGE_LED_BUTTON 22
-#define ON_LED 27
-#define BLUE_LED 28
-#define GREEN_LED 29
+#define ON_BUTTON 4
+#define CHANGE_LED_BUTTON 5
+#define ON_LED 0
+#define BLUE_LED 2
+#define GREEN_LED 3
 
 
 //////// VARIABLES //////////
@@ -29,14 +29,14 @@ volatile int LEDDeterminator = 1;
 
 ///////// FUNCTIONS //////////
 
-void turnOffLEDs() {
-  printf("On / Off clicked");
+void turnOffLEDs() {  
   LEDsEnabled = !LEDsEnabled;
+  printf("On / Off clicked");
 }
 
 void changeLED() {
-  printf("LED Changed");
   LEDDeterminator = !LEDDeterminator;  
+  printf("LED Changed");
 }
 
 
@@ -56,11 +56,15 @@ int main (void) {
   pinMode (BLUE_LED, OUTPUT);
   pinMode (GREEN_LED, OUTPUT);
 
+  digitalWrite (ON_LED, LOW);
+  digitalWrite (BLUE_LED, LOW);
+  digitalWrite (GREEN_LED, LOW);
+
   // Setting up turning on and off DC motor function as interrupt 
-  wiringPiISR (ON_BUTTON, INT_EDGE_RISING, &turnOffLEDs);
+  wiringPiISR (ON_BUTTON, INT_EDGE_FALLING, &turnOffLEDs);
 
   // Setting up switching direction of DC motor function as interrupt
-  wiringPiISR (CHANGE_LED_BUTTON, INT_EDGE_RISING, &changeLED;
+  wiringPiISR (CHANGE_LED_BUTTON, INT_EDGE_FALLING, &changeLED);
 
   while (1) {
 
@@ -68,25 +72,22 @@ int main (void) {
     if (LEDDeterminator == 1) {
     
       digitalWrite(GREEN_LED, HIGH);
-      printf("Green LED on\n"); delay(500);
+      digitalWrite(BLUE_LED, LOW);
 
     } else if (LEDDeterminator == 0) {
       
       digitalWrite(BLUE_LED, HIGH);
-      printf("Blue LED on\n"); delay(500);
+      digitalWrite(GREEN_LED, LOW);
     }
 
     // Turning LEDs on/off
     if (LEDsEnabled == 1) {
       
       digitalWrite(ON_LED, HIGH);
-      printf("LED ON\n"); delay(500);
     
     } else if (LEDsEnabled == 0) {
     
       digitalWrite(ON_LED, LOW);
-      printf("OFFFFFFFFFF\n"); delay(500);
-    
     }
   }
 }
