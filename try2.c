@@ -72,6 +72,8 @@ int main (void) {
   // Setting up switching direction of DC motor function as interrupt
   wiringPiISR (DIRECTION_BUTTON, INT_EDGE_FALLING, &switchMotorDirection);
 
+  // Set up ENABLE_PIN as a software pwm-able pin
+  softPwmCreate(ENABLE_PIN,0,100);
 
   //while (1) {
 
@@ -112,11 +114,13 @@ int main (void) {
     if (motorEnabled == 0) {
       // turn off motor
       printf("OFF\n"); delay (1000);
-      digitalWrite(ENABLE_PIN, LOW);
+      //digitalWrite(ENABLE_PIN, LOW);
+      softPwmWrite(ENABLE_PIN,0);
     } else if (motorEnabled == 1) {
       // turn on motor
       printf("ON\n"); delay (1000);
-      digitalWrite(ENABLE_PIN, HIGH);
+      //digitalWrite(ENABLE_PIN, HIGH);
+      softPwmWrite(ENABLE_PIN, 60);
     }
     
     if (motorDirection == 0) {
