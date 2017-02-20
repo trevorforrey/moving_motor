@@ -20,8 +20,6 @@ volatile int motorEnabled = 0;
 // 0 = ONE WAY, 1 = THE OTHER WAY
 volatile int motorDirection = 0;
 
-volatile unsigned long lastInterruptTime;
-volatile unsigned long interruptTime;
 
 ///////// FUNCTIONS //////////
 
@@ -58,7 +56,7 @@ int main (void) {
   wiringPiISR (DIRECTION_BUTTON, INT_EDGE_FALLING, &switchMotorDirection);
 
   // Set up ENABLE_PIN as a software pwm-able pin
-  softPwmCreate(ENABLE_PIN,0,100);
+  //softPwmCreate(ENABLE_PIN,0,100);
 
 
   while (1) {
@@ -69,13 +67,15 @@ int main (void) {
       printf("OFF\n"); delay (1000);
 
       softPwmWrite(ENABLE_PIN,0);
+      digitalWrite(ENABLE_PIN, LOW);
 
     } else if (motorEnabled == 1) {
 
       // turn on motor
       printf("ON\n"); delay (1000);
 
-      softPwmWrite(ENABLE_PIN, 60);
+      //softPwmWrite(ENABLE_PIN, 60);
+      digitalWrite(ENABLE_PIN, HIGH);
 
     }
     
